@@ -1,0 +1,5 @@
+https://www.roytuts.com/encryption-and-decryption-using-rsa-in-java/
+https://www.novixys.com/blog/rsa-file-encryption-decryption-java/
+
+Diagram explain concept - how the process work
+https://javainterviewpoint.com/rsa-encryption-and-decryption/
