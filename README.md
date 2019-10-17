@@ -34,7 +34,10 @@ Message -> MessageDigest -> encrypt with private key
 -> decrypt with public key -> get messageDigest 
 -> compare equal MessageDigest(from encrpyt) with  MessageDigest(from decrpyt)
 
-###### Generate private and public key
+##### Generate private and public key
+###### java.security.*
+###### KeyPairGenerator class
+###### KeyPair class
 ```
 KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
 keyPairGen.initialize(1024);
@@ -43,14 +46,33 @@ PrivateKey privKey = pair.getPrivate();
 PublicKey publicKey = pair.getPublic(); 
 ```
 
-###### MessageDigest class + ShA-1 algorithms
+##### MessageDigest class + ShA-1 algorithms
 ```
 String message = "Hello";
 MessageDigest md = MessageDigest.getInstance("SHA-1");
 byte[] messageHash = md.digest(message.getBytes());
-```    
+```   
 
-###### Compare decrypted digest message with encrypted digest message
+##### Cipher
+###### javax.crypto.Cipher
+###### Cipher.ENCRYPT_MODE | Cipher.DECRYPT_MODE
+```
+byte[] decData = convert(encrypted, publicKey, Cipher.DECRYPT_MODE);
+byte[] encData = convert(bs, privateKey, Cipher.ENCRYPT_MODE);
+
+private static byte[] convert(byte[] data, Key key, int mode) {
+  try {
+    Cipher cipher = Cipher.getInstance("RSA");
+    cipher.init(mode, key);
+    byte[] newData = cipher.doFinal(data);
+    return newData;
+  } catch (Exception e) {
+    e.printStackTrace();
+  }
+}
+```
+
+##### Compare decrypted digest message with encrypted digest message
 ```
 System.out.println(Arrays.equals(decryptedDigest, encryptedDigest));
 ```
